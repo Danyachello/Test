@@ -1,0 +1,49 @@
+
+    <mujoco model="robot">
+  <option apirate="2000"/>
+  <default>
+    <default class="robot/"/>
+    </default>
+  <worldbody>
+    <body name="body_chassis_" pos="0 0 1" euler="0 0 0">
+      <camera name="camera_track_chassis_" class="robot/" mode="track" pos="0 -3 1" zaxis="0 -1 0.5"/>
+      <geom name="geom_chassis_" class="robot/" type="box" size="0.22 0.16 0.10000000000000001" rgba="0 0.29999999999999999 0.5 1" mass="15"/>
+      <site name="right_site_chassis_" class="robot/" size="9.9999999999999995e-07 9.9999999999999995e-07 9.9999999999999995e-07" pos="0 -0.16 0"/>
+      <body pos="0 0 0" name="right_upper_link/">
+        <body name="right_upper_link/body_link_right_upper">
+          <geom name="right_upper_link/geom_link_right_upper" class="robot/" type="box" size="0.025000000000000001 0.025000000000000001 0.3" rgba="0 0.29999999999999999 0.5 1" mass="2" pos="0 -0.025000000000000001 -0.20000000000000001"/>
+          <joint name="right_upper_link/joint_link_right_upper" class="robot/" type="hinge" axis="0 1 0" ref="20.0" armature="0.010901249999999999" damping="0.073900000000000001" frictionloss="0.13339999999999999" range="-60 60"/>
+          <site name="right_upper_link/link_out_site_right_upper" class="robot/" size="9.9999999999999995e-07 9.9999999999999995e-07 9.9999999999999995e-07" pos="0 -0.050000000000000003 -0.40000000000000002"/>
+          <body pos="0 -0.050000000000000003 -0.51" name="right_upper_link/right_down_link/">
+            <body name="right_upper_link/right_down_link/body_link_right_down">
+              <geom name="right_upper_link/right_down_link/geom_link_right_down" class="robot/" type="box" size="0.025000000000000001 0.025000000000000001 0.3" rgba="0 0.29999999999999999 0.5 1" mass="2" pos="0 -0.025000000000000001 -0.20000000000000001"/>
+              <joint name="right_upper_link/right_down_link/joint_link_right_down" class="robot/" type="hinge" axis="0 1 0" ref="100.0" armature="0.010901249999999999" damping="0.023900000000000001" range="-70 70" frictionloss="0.13339999999999999" stiffness="500.0"/>
+              <site name="right_upper_link/right_down_link/link_out_site_right_down" class="robot/" size="9.9999999999999995e-07 9.9999999999999995e-07 9.9999999999999995e-07" pos="0 -0.050000000000000003 -0.40000000000000002"/>
+              <body pos="0 -0.050000000000000003 -0.40000000000000002" name="right_upper_link/right_down_link/right_tire/">
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <joint name="free_floating_chassis_" class="robot/" type="slide" axis="0 0 1" ref="0.0"/>
+      <site name="imu" class="robot/" size="9.9999999999999995e-07 9.9999999999999995e-07 9.9999999999999995e-07" pos="0 0 0"/>
+    </body>
+    <light name="spotlight_0" class="robot/" mode="targetbodycom" target="body_chassis_" pos="0.25 0.19 0.15000000000000002"/>
+    <light name="spotlight_1" class="robot/" mode="targetbodycom" target="body_chassis_" pos="0.25 -0.19 0.15000000000000002"/>
+    <light name="spotlight_2" class="robot/" mode="targetbodycom" target="body_chassis_" pos="-0.25 0.19 0.15000000000000002"/>
+    <light name="spotlight_3" class="robot/" mode="targetbodycom" target="body_chassis_" pos="-0.25 -0.19 0.15000000000000002"/>
+  </worldbody>
+  <actuator>
+    <motor name="my_motor" joint="right_upper_link/joint_link_right_upper" gear="100" forcelimited="true" forcerange="-10 10"/>
+    <motor name="my_motor1" joint="right_upper_link/right_down_link/joint_link_right_down" forcelimited="true" forcerange="-10 10" gear="500"/>
+  </actuator>
+  <sensor>
+    <jointpos name="rbody_chassi_/pos" joint="free_floating_chassis_"/>
+    <jointvel name="rbody_chassi_/vel" joint="free_floating_chassis_"/>
+    <jointpos name="right_upper_link/pos" joint="right_upper_link/joint_link_right_upper"/>
+    <jointvel name="right_upper_link/vel" joint="right_upper_link/joint_link_right_upper"/>
+    <jointpos name="right_upper_link/right_down_link/pos" joint="right_upper_link/right_down_link/joint_link_right_down"/>
+    <jointvel name="right_upper_link/right_down_link/vel" joint="right_upper_link/right_down_link/joint_link_right_down"/>
+  </sensor>
+  </mujoco>
+    
